@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .screen {
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .screen div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 110%;
+            height: 110vh;
+        }
+        
+        .screen div:nth-child(1) {
+            position: absolute;
+        }
+        
+        .screen div:nth-child(3) {
+            position: absolute;
+        }
+        
+        .screen div i {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: -5%;
+            top: -5%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .screen div:nth-child(1) i {
+            background-image: url('bgpart.png');
+            background-position: center;
+        }
+        
+        .screen div:nth-child(2) i {
+            background-image: url('part.png');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen">
+        <div data-scale="0.3">
+            <i></i>
+        </div>
+        <div data-scale="0.7">
+            <i></i>
+        </div>
+    </div>
+</body>
+<script>
+    parallax()
+
+    function parallax() {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+
+        var box = document.querySelector('.screen');
+        box.style.height = height;
+        box.style.width = width;
+        var div = box.querySelectorAll('div');
+
+        var halfW = box.offsetWidth / 2;
+        var halfH = box.offsetHeight / 2;
+
+        box.onmousemove = function(e) {
+
+            var e = e || window.event;
+            var disX = e.clientX - halfW;
+            var disY = e.clientY - halfH;
+
+            for (var i = 0; i < div.length; i++) {
+                var scale = div[i].getAttribute('data-scale');
+                div[i].style.left = scale * disX / 8 + 'px';
+                div[i].style.top = scale * disY / 8 + 'px';
+            }
+        }
+    }
+</script>
+
+</html>
